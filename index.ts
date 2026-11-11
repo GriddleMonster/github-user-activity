@@ -1,16 +1,15 @@
 const { argv } = require('node:process');
-const endpoint = 'https://api.github.com/users/GriddleMonster/events'
 
-async function getEvents() {
+async function getEvents(endpoint: string) {
     const response = await fetch(endpoint);
     const events = await response.json();
     return events;
 }
 
-async function main() {
-    console.log('endpoint: ', endpoint);
-    const events = await getEvents()
+async function main(username: string) {
+    const endpoint = `https://api.github.com/users/${username}/events`
+    const events = await getEvents(endpoint)
     console.log('events: ', events);
 }
 
-main()
+main(argv[2])
